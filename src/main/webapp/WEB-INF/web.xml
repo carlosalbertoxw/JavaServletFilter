@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <welcome-file-list>
+        <welcome-file>User</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>com.carlosalbertoxw.filters.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/User</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>User</servlet-name>
+        <servlet-class>com.carlosalbertoxw.servlets.User</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/User</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            -1
+        </session-timeout>
+    </session-config>
+</web-app>
