@@ -19,25 +19,17 @@ import javax.servlet.ServletResponse;
  */
 public class UserFilter implements Filter {
 
-    private static final boolean debug = true;
-
     public UserFilter() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        if (debug) {
-            log("UserFilter:DoBeforeProcessing");
-            log(request.getParameter("page"));
-        }
+        System.out.println("UserFilter:DoBeforeProcessing");
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        if (debug) {
-            log("UserFilter:DoAfterProcessing");
-            log(request.getParameter("page"));
-        }
+        System.out.println("UserFilter:DoAfterProcessing");
     }
 
     /**
@@ -49,57 +41,37 @@ public class UserFilter implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
 
-        if (debug) {
-            log("UserFilter:doFilter");
-            log(request.getParameter("page"));
-        }
+        System.out.println("UserFilter:doFilter");
 
         doBeforeProcessing(request, response);
 
-        Throwable problem = null;
-        try {
-            chain.doFilter(request, response);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
+        chain.doFilter(request, response);
 
         doAfterProcessing(request, response);
 
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
-            }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-        }
     }
 
     /**
      * Destroy method for this filter
      */
+    @Override
     public void destroy() {
+        System.out.println("destroy");
     }
 
     /**
      * Init method for this filter
+     *
+     * @param filterConfig
      */
+    @Override
     public void init(FilterConfig filterConfig) {
-
-    }
-
-    public void log(String msg) {
-        System.out.println(msg);
+        System.out.println("init");
     }
 
 }
