@@ -12,6 +12,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -20,16 +22,6 @@ import javax.servlet.ServletResponse;
 public class UserFilter implements Filter {
 
     public UserFilter() {
-    }
-
-    private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
-        System.out.println("UserFilter:DoBeforeProcessing");
-    }
-
-    private void doAfterProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
-        System.out.println("UserFilter:DoAfterProcessing");
     }
 
     /**
@@ -45,15 +37,21 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
         System.out.println("UserFilter:doFilter");
 
-        doBeforeProcessing(request, response);
-
-        chain.doFilter(request, response);
-
-        doAfterProcessing(request, response);
-
+        //Save logs of inputs
+        //Data validations
+        //Validar sesión de usuarios mediante los objetos HttpServletRequest y HttpServletResponse
+        if (true) {
+            //Si los datos son validos enviarlos al servlet
+            chain.doFilter(request, response);
+        } else {
+            //Si hay algún error redireccionarlo a una página de error
+        }
+        //Save logs of outputs
     }
 
     /**
